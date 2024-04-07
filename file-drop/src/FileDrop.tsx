@@ -60,19 +60,7 @@ export class FileDrop extends React.PureComponent<FileDropProps, FileDropState> 
     onDrop: PropTypes.func,
     onTargetClick: PropTypes.func,
     dropEffect: PropTypes.oneOf(['copy', 'move', 'link', 'none']),
-    frame: (props: FileDropProps, propName: keyof FileDropProps, componentName: string) => {
-      const prop = props[propName];
-      if (prop == null) {
-        return new Error(
-          'Warning: Required prop `' + propName + '` was not specified in `' + componentName + '`'
-        );
-      }
-      if (prop !== document && !(prop instanceof HTMLElement)) {
-        return new Error(
-          'Warning: Prop `' + propName + '` must be one of the following: document, HTMLElement!'
-        );
-      }
-    },
+    frame: typeof window === 'undefined' ? undefined : PropTypes.instanceOf(Element),
     onFrameDragEnter: PropTypes.func,
     onFrameDragLeave: PropTypes.func,
     onFrameDrop: PropTypes.func,
